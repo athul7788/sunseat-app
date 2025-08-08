@@ -1,4 +1,3 @@
-
 import streamlit as st
 import openrouteservice
 from geopy.geocoders import Nominatim
@@ -76,15 +75,19 @@ def suggest_seat_schedule(from_place, to_place, start_time, duration_minutes):
     schedule.append((last_seat, interval_start.strftime('%H:%M'), end_time.strftime('%H:%M')))
     return schedule
 
-# Streamlit UI
+# Set page config
 st.set_page_config(page_title="SunSeat", layout="centered")
 st.title("🚌 SunSeat: Sit Smart. Avoid the Sun.")
 st.caption("Get sunlight-aware seat suggestions for your trip.")
 
+# Lock the default journey start time only once per session
+if "default_time" not in st.session_state:
+    st.session_state.default_time = datetime.now().time()
+
 with st.form("sunseat_form"):
     from_place = st.text_input("From", placeholder="e.g., Times Square, New York")
     to_place = st.text_input("To", placeholder="e.g., Central Park, New York")
-    time_input = st.time_input("Journey Start Time", value=datetime.now().time())
+    time_input = st.time_input("Journey Start Time", value=st.session_state.default_time)
     duration = st.number_input("Journey Duration (minutes)", min_value=10, max_value=300, value=60, step=10)
     submitted = st.form_submit_button("Suggest Seat")
 
@@ -98,3 +101,4 @@ if submitted:
             st.write(f"➡️ **{from_t} → {to_t}**: Sit on the **{seat}** side")
     except Exception as e:
         st.error(f"❌ Error: {e}")
+
