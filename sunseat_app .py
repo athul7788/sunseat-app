@@ -98,7 +98,7 @@ if submitted:
         
         st.subheader("🪑 Seat Side Schedule")
         for seat, from_t, to_t in schedule:
-            st.write(f"➡️ **{from_t} → {to_t}**: Sit on the **{seat}** side")
+            st.write(f"➡️ **{from_t} → {to_t}**: Sun is on the **{seat}** side of the vehicle")
     except Exception as e:
         st.error(f"❌ Error: {e}")
 
