@@ -31,7 +31,7 @@ def decide_seat(bearing, sun_azimuth):
     if sun_azimuth is None:
         return "Any (Night)"
     diff = (sun_azimuth - bearing + 360) % 360
-    return "Right" if 90 < diff < 270 else "Left"
+    return "Left" if 90 < diff < 270 else "Right"
 
 def interpolate_position(route_coords, total_steps, step_index):
     index = int(step_index / total_steps * (len(route_coords) - 1))
