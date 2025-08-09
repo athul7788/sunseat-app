@@ -88,7 +88,7 @@ with st.form("sunseat_form"):
     from_place = st.text_input("From", placeholder="e.g., Times Square, New York")
     to_place = st.text_input("To", placeholder="e.g., Central Park, New York")
     time_input = st.time_input("Journey Start Time", value=st.session_state.default_time)
-    duration = st.number_input("Journey Duration (minutes)", min_value=10, max_value=300, value=60, step=10)
+    duration = st.number_input("Journey Duration (minutes)", min_value=10, max_value=1440, value=60, step=10)
     submitted = st.form_submit_button("Suggest Seat")
 
 if submitted:
